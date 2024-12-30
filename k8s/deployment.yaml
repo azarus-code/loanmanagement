@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: loanmanagement
+  namespace: default
+  labels:
+    'backstage.io/kubernetes-id': 'loanmanagement'
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: loanmanagement
+  template:
+    metadata:
+      labels:
+        app: loanmanagement
+        'backstage.io/kubernetes-id': 'loanmanagement'
+    spec:
+      imagePullSecrets:
+      - name: registry-auth
+      containers:
+        - name: loanmanagement
+          image: idpdeveacr.azurecr.io/loanmanagement:latest
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: loanmanagement
+  namespace: default
+  labels:
+    #tekton.dev/pipelines: default/springboot-pipeline
+    'backstage.io/kubernetes-id': 'loanmanagement'
+spec:
+  type: LoadBalancer
+  selector:
+    app: loanmanagement
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80

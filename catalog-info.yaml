@@ -1,0 +1,26 @@
+apiVersion: backstage.io/v1beta1
+kind: Component
+metadata:
+  name:  "loanmanagement"
+  description: sample node app
+  tags:
+    - github
+    - aks
+    - nodejs
+  links:
+    - url: https://github.com/azarus-code/loanmanagement
+      title: loanmanagement Repository
+  annotations:
+    github.com/project-slug: azarus-code/loanmanagement
+    github.com/workflow-ref: .github/workflows/deploy.yaml@main
+    backstage.io/managed-by-location: url:https://github.com/azarus-code/loanmanagement
+    backstage.io/managed-by-origin-location: url:https://github.com/azarus-code/loanmanagement
+    backstage.io/kubernetes-id: "loanmanagement"
+    backstage.io/kubernetes-cluster: "bsidp-cluster"
+    backstage.io/kubernetes-namespace: 'default'
+    # backstage.io/techdocs-ref: dir:.
+    #backstage.io/techdocs-ref: url:http://<your-service-endpoint>
+spec:
+  type: service
+  owner: "azarus-code"
+  lifecycle: production
